@@ -1,0 +1,7 @@
+/target/
+/android/.gradle/
+/android/.tauri/
+/android/build/
+/ios/.build/
+/ios/.tauri/
+.DS_Store

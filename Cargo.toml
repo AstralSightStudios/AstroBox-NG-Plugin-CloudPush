@@ -1,0 +1,16 @@
+[package]
+name = "cloud-push"
+version = "0.1.0"
+authors = ["AstralSightStudios"]
+description = "Cloud push registration bridge for AstroBox"
+edition = "2021"
+rust-version = "1.77.2"
+links = "cloud-push"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.11.3", features = ["rustls-tls"] }
+anyhow = "1"
+
+[build-dependencies]
+tauri-plugin = { version = "2.6.3", features = ["build"] }
