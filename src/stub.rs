@@ -14,7 +14,7 @@ pub struct CloudPush<R: Runtime>(#[allow(dead_code)] AppHandle<R>);
 impl<R: Runtime> CloudPush<R> {
     pub fn request_registration(&self) -> tauri::Result<CloudPushRegistrationResult> {
         Err(tauri::Error::Anyhow(anyhow::anyhow!(
-            "cloud push registration is only available on iOS and Android"
+            "cloud push registration is only available on Android"
         )))
     }
 }

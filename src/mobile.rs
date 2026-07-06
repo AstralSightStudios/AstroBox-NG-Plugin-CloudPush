@@ -6,17 +6,14 @@ use tauri::{
 
 use crate::CloudPushRegistrationResult;
 
-#[cfg(target_os = "ios")]
-tauri::ios_plugin_binding!(init_plugin_cloud_push);
-
+// cloud-push's native registration is gated to Android only: on iOS the build
+// falls back to the desktop stub (see the cfg gating in lib.rs), so this module
+// is compiled only on Android. The iOS Swift implementation under ios/ is left
+// in place but is intentionally not wired into the Rust plugin.
 pub fn init<R: Runtime, C: DeserializeOwned>(
     _app: &AppHandle<R>,
     api: PluginApi<R, C>,
 ) -> tauri::Result<CloudPush<R>> {
-    #[cfg(target_os = "ios")]
-    let handle = api.register_ios_plugin(init_plugin_cloud_push)?;
-
-    #[cfg(target_os = "android")]
     let handle = api.register_android_plugin(
         "moe.astralsight.astrobox.plugin.cloud_push",
         "CloudPushPlugin",

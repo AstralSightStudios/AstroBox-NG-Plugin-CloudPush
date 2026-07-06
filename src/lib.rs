@@ -5,16 +5,16 @@ use tauri::{
 
 pub use models::*;
 
-#[cfg(mobile)]
+#[cfg(target_os = "android")]
 mod mobile;
-#[cfg(not(mobile))]
+#[cfg(not(target_os = "android"))]
 mod stub;
 
 mod models;
 
-#[cfg(mobile)]
+#[cfg(target_os = "android")]
 use mobile::CloudPush;
-#[cfg(not(mobile))]
+#[cfg(not(target_os = "android"))]
 use stub::CloudPush;
 
 pub trait CloudPushExt<R: Runtime> {
@@ -30,9 +30,9 @@ impl<R: Runtime, T: Manager<R>> CloudPushExt<R> for T {
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("cloud-push")
         .setup(|app, api| {
-            #[cfg(mobile)]
+            #[cfg(target_os = "android")]
             let cloud_push = mobile::init(app, api)?;
-            #[cfg(not(mobile))]
+            #[cfg(not(target_os = "android"))]
             let cloud_push = stub::init(app, api)?;
             app.manage(cloud_push);
             Ok(())
